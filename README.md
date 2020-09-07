@@ -7,6 +7,27 @@
 
 ## 使用说明
 
+### 安装依赖
+
+```
+pip install -r requirement.txt
+```
+
+### 启动服务
+
+```
+uvicorn runme:app --reload
+```
+
+### 查看API
+
+直接GET/POST`127.0.0.1/`下地址
+
+或浏览器打开以查看对应内容
+
+### 查看文档
+
+访问`127.0.0.1/docs`
 
 ## 注意事项
 ### Commitzen友好
