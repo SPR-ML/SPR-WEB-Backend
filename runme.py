@@ -2,10 +2,13 @@ import json
 # from urllib.parse import parse_qs
 from fastapi import FastAPI
 # from wsgiref.simple_server import make_server
+from typing import Optional
 from pydantic import BaseModel
 # Python WEB接口开发 Flask -> FastAPI
 import modules.datasets as ds
-import modules.models as md
+import modules.models as md 
+import modules.statistic as st
+
 
 app = FastAPI()
 
@@ -30,18 +33,61 @@ def getRawColumn(scale: str,colType: str, col: str):
 def getModel(modelType: str, target: str):
     return {'message': '请求{}模型中的{}项'.format(modelType,target)}
 
-class form:
-    formData = {}
-    def __init__(self, data):
-        self.formData = data
+# class form:
+#     formData = {}
+#     def __init__(self, data):
+#         self.formData = data
 
-class dataset:
-    fileUrl = ''
-    def __init__(self, url):
-        self.fileUrl = url
+# class dataset:
+#     fileUrl = ''
+#     def __init__(self, url):
+#         self.fileUrl = url
+class attributes:
+    School: str
+    Class: int
+    Age: int
+    Address: str
+    Famsize: str
+    Pstatus: str
+    Medu: int
+    Fedu: int
+    Mjob: str
+    Fjob: str
+    Reason: str
+    Guardian: str
+    TravelTime: int
+    StudyTime: int
+    Failures: int
+    SchoolSup: bool
+    FamSup: bool
+    Paid: bool
+    Activities: bool
+    Nursery: bool
+    Higher: bool
+    Internet: bool
+    Romantic: bool
+    FamRel: int
+    FreeTime: int
+    GoOut: int
+    Dalc: int
+    Walc: int
+    Health: int
+    Absences: int
+    G: int
+
+
+
+@app.get('/stat/importance')
+def getImportance():
+    return st.importance
+
+@app.get('/stat/appearance')
+def getAppearance():
+    return st.appearance
 
 @app.post('/predict/form')
-def getPredict(form: str):
+def getPredict(form: attributes):
+    #return {''}
     return {'message': '预测单个项目'}
 
 @app.post('/predict/dataset')
