@@ -35,15 +35,14 @@ importance = {
     'All_sup': 3
 }
 
-
 appearance = {
-    'RandomForest': 2.5136288034360588, 
-    'CatBoost': 2.5201534580726337, 
-    'XGRFBoost': 2.577467060911487, 
-    'LightGBM': 2.600404101246184, 
-    'Support Vector Machine': 2.606449937079663, 
-    'XGBoost': 2.655595771443991, 
-    'SGD': 2.6793871215014433, 
-    'ElasticNet': 2.86670253809402, 
+    'RandomForest': 2.5136288034360588,
+    'CatBoost': 2.5201534580726337,
+    'XGRFBoost': 2.577467060911487,
+    'LightGBM': 2.600404101246184,
+    'Support Vector Machine': 2.606449937079663,
+    'XGBoost': 2.655595771443991,
+    'SGD': 2.6793871215014433,
+    'ElasticNet': 2.86670253809402,
     'DecisionTree': 3.496992828203838
 }

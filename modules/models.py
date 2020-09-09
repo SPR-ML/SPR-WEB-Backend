@@ -24,7 +24,8 @@ def dataTransform(data):
 def dataPreProcessing(data):
     data['All_Sup'] = data['famsup'] & data['schoolsup']  # 1
     data['PairEdu'] = data[['Fedu', 'Medu']].mean(axis=1)  # 2
-    data['more_high'] = data['higher'] & (data['schoolsup'] | data['paid'])  # 3
+    data['more_high'] = data['higher'] & (data['schoolsup'] | data['paid']
+                                          )  # 3
     data['All_alc'] = data['Walc'] + data['Dalc']  # 4
     data['Dalc_per_week'] = data['Dalc'] / data['All_alc']  # 5
     data.drop(['Dalc'], axis=1, inplace=True)  # 6
