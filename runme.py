@@ -3,7 +3,7 @@ import json
 from fastapi import FastAPI, File, UploadFile
 # from wsgiref.simple_server import make_server
 
-#Across Field
+# Across Field
 from starlette.middleware.cors import CORSMiddleware
 from typing import Optional
 from pydantic import BaseModel
@@ -15,12 +15,13 @@ import modules.utils as ut
 import logging
 import time
 import os
-#Add WEBAPP
+# Add WEBAPP
 app = FastAPI()
 
-#Allow all
+# Allow all
 origins = ['*']
 
+# Solver
 app.add_middleware(
     CORSMiddleware,
     allow_origins = origins,
@@ -28,7 +29,7 @@ app.add_middleware(
     allow_methods = ['*'],
     allow_headers = ['*']
 )
-#Set Logger
+# Set Logger
 logging.basicConfig(filename='runtime.log', level=logging.INFO)
 
 @app.get('/test')
@@ -41,23 +42,22 @@ def test():
         logging.error("Please check connection: ", str(e))
     
 
+# Static Done
 @app.get('/datasets/column/target')
-def getRawTarget(scale: str):
+def getRawTarget():
     return {'message':'成功获取','result': ds.getColumn('G')}
 
+# Static Done
 @app.get('/datasets/column/{col}')
-def getRawColumn(scale: str, col: str):
+def getRawColumn(col: str):
     return {'message':'成功获取','result': ds.getColumn(col)}
 
+# TODO
 @app.get('/model/{modelType}')
 def getModel(modelType: str):
-    #v1
-    #v2
-    #v3
-    #{'date':,'version':,'accurancy-score':,'cor':,'r2-score':,'rame'}
     return
-    # return {'message': '请求{}模型中的{}项'.format(modelType)}
 
+# Form Package
 class attributes(BaseModel):
     School: str
     Class: int
@@ -91,17 +91,21 @@ class attributes(BaseModel):
     Absences: int
     # G: int
 
+# Static Done
 @app.get('/stat/importance')
 def getImportance():
     return {'message':'成功获取', 'result':st.importance}
 
+# Static Done
 @app.get('/stat/appearance')
 def getAppearance():
     return {'message':'成功获取', 'result':st.appearance}
 
-@app.post('/predict/form')
+
+@app.post('/predict/form/')
 def getPredict(form: attributes):
     return {'message': '成功获取', 'result': md.predictForm(form)}
+
 
 @app.post('/predict/dataset')
 async def getPredictSet(dataset: UploadFile = File(...)):
