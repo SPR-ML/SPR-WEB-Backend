@@ -19,18 +19,20 @@ def getSystemPlatform():
 def getModelsPath():
     root = getRootPath()
     # return root
-    if getSystemPlatform() == "Windows":
-        return os.path.join(root,"static\\models")
-    else:
-        return os.path.join(root,"static/models")
+    return os.path.join(root,'static','models')
+    # if getSystemPlatform() == "Windows":
+    #     return os.path.join(root,"static\\models")
+    # else:
+    #     return os.path.join(root,"static/models")
 
 def getDatasetsPath():
     root = getRootPath()
     # return root
-    if getSystemPlatform() == "Windows":
-        return os.path.join(root,"static\\datasets")
-    else:
-        return os.path.join(root,"static/datasets")
+    return os.path.json(root,'static','datasets')
+    # if getSystemPlatform() == "Windows":
+    #     return os.path.join(root,"static\\datasets")
+    # else:
+    #     return os.path.join(root,"static/datasets")
 
 def getFilePath(path, fileName):
     return os.path.join(path,fileName)

@@ -33,15 +33,6 @@ def getRawColumn(scale: str,colType: str, col: str):
 def getModel(modelType: str, target: str):
     return {'message': '请求{}模型中的{}项'.format(modelType,target)}
 
-# class form:
-#     formData = {}
-#     def __init__(self, data):
-#         self.formData = data
-
-# class dataset:
-#     fileUrl = ''
-#     def __init__(self, url):
-#         self.fileUrl = url
 class attributes(BaseModel):
     School: str
     Class: int
