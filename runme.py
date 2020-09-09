@@ -42,7 +42,7 @@ def getModel(modelType: str, target: str):
 #     fileUrl = ''
 #     def __init__(self, url):
 #         self.fileUrl = url
-class attributes:
+class attributes(BaseModel):
     School: str
     Class: int
     Age: int
@@ -73,7 +73,7 @@ class attributes:
     Walc: int
     Health: int
     Absences: int
-    G: int
+    # G: int
 
 
 
