@@ -1,15 +1,15 @@
 #Reader
 import csv
 import os
+import pandas as pd
 import modules.utils as ut
+#import utils as ut
+from collections import Counter
+
 def readDataset(dataset):
-    with open(ut.getDatasetsFullPath(dataset), encoding='utf-8') as d:
-        return d
-    pass
-
-def readRawDataset():
-    return readDataset("rawData.csv")
+    return pd.read_csv(ut.getDatasetsFullPath(dataset))
 
 
-def readExtDataset():
-    return readDataset("extData.csv")
+def getColumn(column):
+    dataset = readDataset('rawData.csv')
+    return dict(Counter(list(dataset[column])))

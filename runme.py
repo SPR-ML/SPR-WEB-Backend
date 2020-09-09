@@ -1,37 +1,62 @@
 import json
 # from urllib.parse import parse_qs
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 # from wsgiref.simple_server import make_server
+
+#Across Field
+from starlette.middleware.cors import CORSMiddleware
 from typing import Optional
 from pydantic import BaseModel
 # Python WEB接口开发 Flask -> FastAPI
 import modules.datasets as ds
 import modules.models as md 
 import modules.statistic as st
-
-
+import modules.utils as ut
+import logging
+import time
+import os
+#Add WEBAPP
 app = FastAPI()
+
+#Allow all
+origins = ['*']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ['*'],
+    allow_headers = ['*']
+)
+#Set Logger
+logging.basicConfig(filename='runtime.log', level=logging.INFO)
 
 @app.get('/test')
 def test():
-    return {'message': 'Init FastAPI successfully.'}
+    logging.debug("Response: Test")
+    try:
+        logging.info("Test Success")
+        return {'message': 'Init FastAPI successfully.'}
+    except Exception as e:
+        logging.error("Please check connection: ", str(e))
+    
 
-@app.get('/{scale}/column/target')
+@app.get('/datasets/column/target')
 def getRawTarget(scale: str):
-    if scale == 'ext':
-        return {'message': '请求扩展数据集G3中'}
-    elif scale == 'raw':
-        return {'message': '请求原始G3中'}
-    else:
-        return {'message': '未找到请求目标'}
+    return {'message':'成功获取','result': ds.getColumn('G')}
 
-@app.get('/{scale}/column/{colType}/{col}')
-def getRawColumn(scale: str,colType: str, col: str):
-    return {'message': '请求{}数据集中{}类型的{}数据统计'.format(scale,colType, col)}
+@app.get('/datasets/column/{col}')
+def getRawColumn(scale: str, col: str):
+    return {'message':'成功获取','result': ds.getColumn(col)}
 
-@app.get('/model/{modelType}/{target}')
-def getModel(modelType: str, target: str):
-    return {'message': '请求{}模型中的{}项'.format(modelType,target)}
+@app.get('/model/{modelType}')
+def getModel(modelType: str):
+    #v1
+    #v2
+    #v3
+    #{'date':,'version':,'accurancy-score':,'cor':,'r2-score':,'rame'}
+    return
+    # return {'message': '请求{}模型中的{}项'.format(modelType)}
 
 class attributes(BaseModel):
     School: str
@@ -66,21 +91,25 @@ class attributes(BaseModel):
     Absences: int
     # G: int
 
-
-
 @app.get('/stat/importance')
 def getImportance():
-    return st.importance
+    return {'message':'成功获取', 'result':st.importance}
 
 @app.get('/stat/appearance')
 def getAppearance():
-    return st.appearance
+    return {'message':'成功获取', 'result':st.appearance}
 
 @app.post('/predict/form')
 def getPredict(form: attributes):
-    #return {''}
-    return {'message': '预测单个项目'}
+    return {'message': '成功获取', 'result': md.predictForm(form)}
 
 @app.post('/predict/dataset')
-def getPredictSet(dataset: str):
-    return {'message': '预测数据集'}
+async def getPredictSet(dataset: UploadFile = File(...)):
+    start = time.time()
+    try:
+        res = await dataset.read()
+        with open(os.path.join(ut.getDatasetsFullPath(),dataset.filename), "wb") as f:
+            f.write(res)
+        return {"message": "成功获取", 'time': time.time() - start, 'filename': dataset.filename}
+    except Exception as e:
+        return {"message": str(e), 'time': time.time() - start, 'filename': dataset.filename}
