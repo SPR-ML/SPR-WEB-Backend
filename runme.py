@@ -18,10 +18,9 @@ import os
 app = FastAPI()
 
 # Allow all
-origins = ['*',
-"http://localhost",
-"http://localhost:3000"
-"http://localhost:8080"
+origins = [
+    '*', "http://localhost", "http://localhost:3000"
+    "http://localhost:8080"
 ]
 
 # Solver
