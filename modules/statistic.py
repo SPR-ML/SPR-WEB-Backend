@@ -53,7 +53,7 @@ modelStat = {
     'v1': {
         'version': 'v1',
         'date': datetime.date(2020, 9, 7),
-        'r2_score': 1,
+        'r2_score': {'G': 0.30268199233716475, 'M': 0.504},
         'rsme': 1
     },
     'v2': {

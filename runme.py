@@ -134,6 +134,7 @@ async def getPredictSet(dataset: UploadFile = File(...)):
         with open(os.path.join(ut.getDatasetsFullPath(dataset.filename)),
                   "wb") as f:
             f.write(res)
+        md.predictFile(ut.getDatasetsFullPath(dataset.filename))
         return {
             "message": "Success, 成功获取",
             'time': time.time() - start,

@@ -119,7 +119,15 @@ def predictForm(form, process=True):
 
 def predictFile(file: str, process=True):
     df = pd.read_csv("file")
-    if process:
-        return runWithPreProcess(df)
-    else:
-        return runWithNoProcess(df)
+    predictResult = []
+    for m in availableNoModels:
+        predictResult.append(
+            {"model": m[:4], "outcome": list(map(float,list(runWithNoProcess(m, df))))})
+    for m in availablePreModels:
+        predictResult.append(
+            {"model": m[:4] , "outcome": list(map(float,list(runWithPreProcess(m, df))))})
+    return predictResult
+    # if process:
+    #     return runWithPreProcess(df)
+    # else:
+    #     return runWithNoProcess(df)
