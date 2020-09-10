@@ -3,7 +3,6 @@ import joblib
 import pandas as pd
 import modules.utils as ut
 from sklearn.preprocessing import LabelEncoder
-import logging
 
 # availableModels = [
 #     'v1_GaussianNB_Classifier_4.m', 'v1_MultiNB_Classifier_4.m',
@@ -12,12 +11,11 @@ import logging
 # ]
 availableNoModels = [
     'v1_GaussianNB_Classifier_4.m', 'v1_MultiNB_Classifier_4.m',
-    'v2_GaussianNB_Classifier_2.m', 'v2_MultiNB_Classifier_2.m'
+    'v2_GaussianNB_Classifier_2.m', 'v2_MultiNB_Classifier_2.m',
+    'v3_XGBRegressor.m'
 ]
 
-availablePreModels = [
-    'v3_XGBRegressor.m', 'v4_CatBoostRegressor.m'
-]
+availablePreModels = ['v4_CatBoostRegressor.m']
 
 
 def dataTransform(data):
@@ -63,7 +61,8 @@ def runWithPreProcess(model, data: pd.DataFrame):
     clf = importModel(model)
     data = dataTransform(data)
     data = dataPreProcessing(data)
-    print("[PRE]TO MODEL",data)
+    print("[PRE]TO MODEL", data)
+    print("[PRE]TITLING", data.columns)
     res = clf.predict(data)
     return res
 
@@ -73,7 +72,7 @@ def predictForm(form, process=True):
     predictResult = []
     thisForm = vars(form)
     dataSet = {}
-    print("this: ",thisForm)
+    print("this: ", thisForm)
     # logging.info("")
     dataSet['school'] = thisForm['School']
     dataSet['class'] = thisForm['Class']
@@ -106,16 +105,14 @@ def predictForm(form, process=True):
     dataSet['health'] = thisForm['Health']
     dataSet['absences'] = thisForm['Absences']
 
-    # print("multi:", dataSet)
+    print("multi:", dataSet)
 
-    for m in availableModels:
-
-        if process:
-            predictResult.append(
-                runWithPreProcess(m, pd.DataFrame.from_dict([dataSet])))
-        else:
-            predictResult.append(
-                runWithNoProcess(m, pd.DataFrame.from_dict([dataSet])))
+    for m in availableNoModels:
+        predictResult.append(
+            {"model": m[:4], "outcome": float(list(runWithNoProcess(m, pd.DataFrame.from_dict([dataSet])))[0])})
+    for m in availablePreModels:
+        predictResult.append(
+            {"model": m[:4] , "outcome": float(list(runWithPreProcess(m, pd.DataFrame.from_dict([dataSet])))[0])})
     return predictResult
     # form = [value for value in args]
 

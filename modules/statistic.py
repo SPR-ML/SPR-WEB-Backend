@@ -1,3 +1,5 @@
+import datetime
+
 importance = {
     'absences': 172,
     'studytime_ratio': 123,
@@ -45,4 +47,31 @@ appearance = {
     'SGD': 2.6793871215014433,
     'ElasticNet': 2.86670253809402,
     'DecisionTree': 3.496992828203838
+}
+
+modelStat = {
+    'v1': {
+        'version': 'v1',
+        'date': datetime.date(2020, 9, 7),
+        'r2_score': 1,
+        'rsme': 1
+    },
+    'v2': {
+        'version': 'v2',
+        'date': datetime.date(2020, 9, 7),
+        'r2_score': 1,
+        'rsme': 1
+    },
+    'v3': {
+        'version': 'v3',
+        'date': datetime.date(2020, 9, 8),
+        'r2_score': 1,
+        'rsme': 1
+    },
+    'v4': {
+        'version': 'v4',
+        'date': datetime.date(2020, 9, 9),
+        'r2_score': 1,
+        'rsme': 1
+    }
 }
