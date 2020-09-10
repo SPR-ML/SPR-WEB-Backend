@@ -118,7 +118,7 @@ def predictForm(form, process=True):
 
 
 def predictFile(file: str, process=True):
-    df = pd.read_csv("file")
+    df = pd.read_csv(file)
     predictResult = []
     for m in availableNoModels:
         predictResult.append(

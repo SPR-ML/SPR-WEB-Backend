@@ -134,13 +134,16 @@ async def getPredictSet(dataset: UploadFile = File(...)):
         with open(os.path.join(ut.getDatasetsFullPath(dataset.filename)),
                   "wb") as f:
             f.write(res)
-        md.predictFile(ut.getDatasetsFullPath(dataset.filename))
+        r = md.predictFile(ut.getDatasetsFullPath(dataset.filename))
+        #print(r)
         return {
             "message": "Success, 成功获取",
             'time': time.time() - start,
-            'filename': dataset.filename
+            'filename': dataset.filename,
+            'result': r
         }
     except Exception as e:
+        #print(str(e))
         return {
             "message": str(e),
             'time': time.time() - start,

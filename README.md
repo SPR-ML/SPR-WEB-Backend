@@ -33,3 +33,7 @@ uvicorn runme:app --reload
 ### Commitzen友好
 
 请使用`git cz`进行Commit而非`git commit` 
+
+### 上传数据文件
+
+原始30列，不包含G，按顺序
