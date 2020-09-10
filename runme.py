@@ -18,7 +18,11 @@ import os
 app = FastAPI()
 
 # Allow all
-origins = ['*']
+origins = ['*',
+"http://localhost",
+"http://localhost:3000"
+"http://localhost:8080"
+]
 
 # Solver
 app.add_middleware(CORSMiddleware,
