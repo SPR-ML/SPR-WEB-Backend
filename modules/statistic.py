@@ -53,25 +53,25 @@ modelStat = {
     'v1': {
         'version': 'v1',
         'date': datetime.date(2020, 9, 7),
-        'r2_score': {'G': 0.30268199233716475, 'M': 0.504},
-        'rsme': 1
+        'r2_score': {'G': 0.3026819923371647, 'M': 0.5402298850574713},
+        'auc': 0
     },
     'v2': {
         'version': 'v2',
         'date': datetime.date(2020, 9, 7),
-        'r2_score': 1,
-        'rsme': 1
+        'r2_score': {"G": 0.7624521072796935,"M": 0.7126436781609196},
+        'auc': 0
     },
     'v3': {
         'version': 'v3',
         'date': datetime.date(2020, 9, 8),
-        'r2_score': 1,
-        'rsme': 1
+        'r2_score': 0.3084157932510938,
+        'rsme': 2.328060360826329
     },
     'v4': {
         'version': 'v4',
         'date': datetime.date(2020, 9, 9),
-        'r2_score': 1,
-        'rsme': 1
+        'r2_score': 0.3123073836119675,
+        'rsme': 2.321501045083196
     }
 }
